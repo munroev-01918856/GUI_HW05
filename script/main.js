@@ -1,8 +1,15 @@
 /*
+ File: main.js
+GUI Assignment: HW 5-Scrabble
+Victoria Munroe victoria_munroe@student.uml.edu
+Description: 1 row legnth scrabble
+This page holds programming
 
+Copyright (c) 2023 by VMunroe. All rights reserved. May be freely copied or excerpted for educational purposes with credit to the author.
+created by VM 6/23/23
 
 Sources:
-load tile bag
+load tile bag:
 https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
 */
 $(function() {
@@ -10,6 +17,7 @@ $(function() {
   var tilePool = [];
   var tileRack =[];
 
+  
   //Ajax to get json containing info about tiles and their distribution
   $.get("https://ykanane.github.io/Scrabble/pieces.json")
   .done(function(response) {

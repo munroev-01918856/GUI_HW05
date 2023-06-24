@@ -1,4 +1,29 @@
+ /* File: style.css
+GUI Assignment: HW 5-Scrabble
+Victoria Munroe victoria_munroe@student.uml.edu
+Description: 1 row legnth scrabble
+This page holds the css styling
+
+Copyright (c) 2023 by VMunroe. All rights reserved. May be freely copied or excerpted for educational purposes with credit to the author.
+created by VM 6/23/23
+
+Sources: 
+w3Schools w3schools.com
+TutorialsPoint 
+
+  */
+
+
 body{
-    /* background-image: url("../graphics_data/Scrabble_Board_OneLine.png"); */
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("../graphics_data/background.png");
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+
+    color:rgb(7, 116, 116);
+    font-style: bold;
 
 }
