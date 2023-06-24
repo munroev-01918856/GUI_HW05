@@ -72,24 +72,13 @@ $(function() {
     // // console.log(imageSrc);
     var id="letter"+id;
     var tileClass="tile";
-    // // $(".rack").append("<img src=\""+imageSrc+
-    // // "\"id=\""+id+
-    // // "\"value=\""+tile.value+
-    // // "\"letter =\""+tile.letter+
-    // // "\">")
-
-    // $(".rack").append("<img src=\""+imageSrc+ "\""+
-    // "id=\""+id+ "\""+
-    // "class=\""+tileClass+ "\""+
-    // "value=\""+tile.value+ "\""+
     
-    // "\">")
 
     $("#rack").append("<img src=\""+imageSrc+ "\""+
     "id=\""+id+ "\""+
     "class=\""+tileClass+ "\""+
     "value=\""+tile.value+ "\""+
-    
+    "letter=\""+tile.letter+ "\""+
     "\">")
   }
 
