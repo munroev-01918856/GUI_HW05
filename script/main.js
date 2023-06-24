@@ -45,9 +45,13 @@ $(function() {
     }
     while(tileRack.length<7){
       randTile=Math.floor(Math.random() * tilePool.length);
-      console.log("Randomnumber" + randTile)
       tileRack.push(tilePool[randTile]);
       delete tilePool[randTile];
+    }
+    // console.log($("#tilerack").attr("value"))
+    for (let i = 0; i < tileRack.length; i++) {
+      // console.log(tileImg(tileRack[i].letter));
+      loadTileGUI(tileRack[i],i)
     }
 }
   
@@ -55,6 +59,54 @@ $(function() {
     fillTilePool();
     loadRack()
   }
+  https://www.techiedelight.com/load-and-append-image-to-dom-javascript/
+  function loadTileGUI(tile, pos){
+  //   var image = new Image();
+  //   // image.width="300px"
+  //   // image.height="500px"
+  //  // imageasq21gbvb .setAttribute("class", "tile-img");
+  //   image.src ="a.jpeg"
+  //   $("#rack").append(image);
+  
+    var imageSrc= tileImg(tile.letter)
+    // // console.log(imageSrc);
+    var id="letter"+id;
+    var tileClass="tile";
+    // // $(".rack").append("<img src=\""+imageSrc+
+    // // "\"id=\""+id+
+    // // "\"value=\""+tile.value+
+    // // "\"letter =\""+tile.letter+
+    // // "\">")
+
+    // $(".rack").append("<img src=\""+imageSrc+ "\""+
+    // "id=\""+id+ "\""+
+    // "class=\""+tileClass+ "\""+
+    // "value=\""+tile.value+ "\""+
+    
+    // "\">")
+
+    $("#rack").append("<img src=\""+imageSrc+
+    
+    "\">")
+  }
+
+
+  //https://linuxhint.com/display-image-with-javascript/
+
+  // function displayImage(src, width, height) {
+  //   var img = document.createElement("img");
+  //   img.src = src;
+  //   img.width = width;
+  //   img.height = height;
+  //   document.body.appendChild(img);
+  //  }
+
+  function tileImg(tile){
+    var baseURL="images/Scrabble_Tiles/Scrabble_Tile_"
+    if (tile=="_"){return ""+ baseURL+ "Blank.jpg"}
+    else {return ""+ baseURL+tile+".jpg"}
+  }
+ 
 
 
   
