@@ -85,7 +85,10 @@ $(function() {
     
     // "\">")
 
-    $("#rack").append("<img src=\""+imageSrc+
+    $("#rack").append("<img src=\""+imageSrc+ "\""+
+    "id=\""+id+ "\""+
+    "class=\""+tileClass+ "\""+
+    "value=\""+tile.value+ "\""+
     
     "\">")
   }
