@@ -17,20 +17,37 @@ $(function() {
   var tilePool = [];
   var tileRack =[];
   var score=0;
+  var currentScore=0;
   var counter=0;
 
-//REMOVE
-// $( "#draggable-2" ).draggable();
+
+
+// Sources:
+// https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
+// https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
+
 $( "#droppable-2" ).droppable({
+  // tolerance: 'fit',
   drop: function( event, ui ) {
+    var id=ui.draggable.attr("id");
+    var value=ui.draggable.attr("value")
+    var letter=ui.draggable.attr("letter")
+    console.log("L "+letter+" Value" + value)
+    tileMovedtoBoard(id,value,letter,false);
      $( this )
-     .addClass( "ui-state-highlight" );
-    //  .find( "p" )
-    //  .html( "Dropped!" );
-     console.log("Hi")
+     .addClass( "ui-state-highlight" )
+     .find( "p" )
+     .html( "Dropped!" );
   }
 });
 
+function tileMovedtoBoard(id,value,letter,doubleWord){
+  currentScore+=value;
+  if (doubleWord){currentScore=currentScore*2;}
+  console.log("Current Score"+currentScore);
+  
+
+}
   function initializeGame(){
     prepareBoard();
     fillTilePool();
@@ -115,7 +132,7 @@ function handleDropEvent(event, ui) {
       cursor: "move",
       stop: function(event, ui) {
         // Write the Code 
-        tileDropped(letter, value)
+        return;
       }
 
   });
