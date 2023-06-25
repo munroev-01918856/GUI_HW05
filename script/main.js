@@ -24,6 +24,9 @@ $(function() {
     loadRack()
   }
 
+  $(".board").droppable();
+  
+  
   //Ajax to get json containing info about tiles and their distribution
   $.get("https://ykanane.github.io/Scrabble/pieces.json")
   .done(function(response) {
@@ -60,6 +63,7 @@ $(function() {
       // console.log(tileImg(tileRack[i].letter));
       loadTileGUI(tileRack[i],i)
     }
+   
 }
   
  
@@ -74,9 +78,23 @@ $(function() {
     "class=\""+tileClass+ "\""+
     "value=\""+tile.value+ "\""+
     "letter=\""+tile.letter+ "\""+
-    
     "\">")
+
+    //https://www.tutorialspoint.com/jqueryui/jqueryui_draggable.htm
+    $("#"+id).draggable({
+      cursor: "move",
+      stop: function( event, ui ) {
+        // Write the Code 
+        tileDropped(ui)
+      }
+
+  });
+
   }
+
+  function tileDropped(letter,value){
+    console.count("UI"+ui)
+}
 
 
  
