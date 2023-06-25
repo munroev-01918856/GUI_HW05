@@ -29,11 +29,12 @@ $(function() {
 $( "#droppable-2" ).droppable({
   // tolerance: 'fit',
   drop: function( event, ui ) {
+    console.log ($("#droppable-2").attr("bonus"))
+    var bonus =$("#droppable-2").attr("bonus")
     var id=ui.draggable.attr("id");
     var value=ui.draggable.attr("value")
     var letter=ui.draggable.attr("letter")
-    console.log("L "+letter+" Value" + value)
-    tileMovedtoBoard(id,value,letter,false);
+    tileMovedtoBoard(id,value,letter,bonus);
      $( this )
      .addClass( "ui-state-highlight" )
      .find( "p" )
@@ -41,9 +42,9 @@ $( "#droppable-2" ).droppable({
   }
 });
 
-function tileMovedtoBoard(id,value,letter,doubleWord){
+function tileMovedtoBoard(id,value,letter,bonus){
   currentScore+=value;
-  if (doubleWord){currentScore=currentScore*2;}
+  currentScore*=bonus;
   console.log("Current Score"+currentScore);
   
 
