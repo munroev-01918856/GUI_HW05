@@ -192,7 +192,14 @@ Sources:
   function playRound(){
     console.log("Playing new round")
     score+=currentScore;
-    $("#score").text("Current Score:" +score+"<br>Last Round won "+currentScore+" points!");
+    $("#score").text("Current Score:" +score);
+    $("#word").text("Last round played "+word + "For " +currentScore+" points!")
+    //clear board
+    for (let i=0;i<currentTilesPlayed.length;i++){
+      console.log("Test "+currentTilesPlayed[i])
+      $(currentTilesPlayed[i]).remove();
+    }
+    //add new tiles
     loadRack();
 
   }
@@ -228,17 +235,6 @@ function disableTile(id,letter){
     console.log(tileRack[i].letter)
   }
  
-  // console.log("Deleted "+value+"At "+index)
-  // for(let i=0;i<tileRack.length;i++){
-  //   if (tileRack[i].letter==value)
-  //     delete tileRack[index];
-  //   break;
-  // }
-  // for(let i=0;i<tileRack.length;i++){
-  //   console.log(tileRack[i])
-  // }
-
-
 }
 
 function reset(){

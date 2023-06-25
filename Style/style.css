@@ -37,10 +37,15 @@ body{
 
 }
 
+#rack{
+    clear:both
+}
+
 #tileRack{
     width:400px;
     /* z-index: 2; */
 }
+
 
 .board{
   height: 60px;

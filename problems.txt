@@ -18,7 +18,8 @@ fix delete tiles from previous round from rack(disableTile)
 
 fix number of letters added in new round
 
+fix clear board in playRound()
 To-do:
 1. enable proper tile rack
-2.clear board
+
 3. add double letter bonus
