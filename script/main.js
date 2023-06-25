@@ -69,23 +69,26 @@ $(function() {
  
   
   function loadTileGUI(tile, pos){
-    var imageSrc= tileImg(tile.letter)
-    var id="letter"+id+counter;
+    var letter=tile.letter
+    var value=tile.value
+    var imageSrc= tileImg(letter)
+    var id="letter_"+letter+"_"+pos;
     var tileClass="tile";
+    
     $("#rack").append("<img src=\""+imageSrc+ "\""+
     "draggable=\"true\""+
     "id=\""+id+ "\""+
     "class=\""+tileClass+ "\""+
-    "value=\""+tile.value+ "\""+
-    "letter=\""+tile.letter+ "\""+
+    "value=\""+value+ "\""+
+    "letter=\""+letter+ "\""+
     "\">")
-
+    console.log("Created tile "+letter)
     //https://www.tutorialspoint.com/jqueryui/jqueryui_draggable.htm
     $("#"+id).draggable({
       cursor: "move",
-      stop: function( event, ui ) {
+      stop: function(event, ui) {
         // Write the Code 
-        tileDropped(ui)
+        tileDropped(letter, value)
       }
 
   });
@@ -93,7 +96,7 @@ $(function() {
   }
 
   function tileDropped(letter,value){
-    console.count("UI"+ui)
+    console.log("Tile Droppped "+letter + "value "+value)
 }
 
 
