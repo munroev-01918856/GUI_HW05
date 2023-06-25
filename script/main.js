@@ -9,7 +9,7 @@ Copyright (c) 2023 by VMunroe. All rights reserved. May be freely copied or exce
 created by VM 6/23/23
 
 Sources:
-load tile bag:
+load tile bag & loading JSON:
 https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
 */
 $(function() {
@@ -20,64 +20,84 @@ $(function() {
   var currentScore=0;
   var counter=0;
 
-
-
-// Sources:
-// https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
-// https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
-
-$( "#droppable-2" ).droppable({
-  // tolerance: 'fit',
-  drop: function( event, ui ) {
-    console.log ($("#droppable-2").attr("bonus"))
-    var bonus =$("#droppable-2").attr("bonus")
-    var id=ui.draggable.attr("id");
-    var value=ui.draggable.attr("value")
-    var letter=ui.draggable.attr("letter")
-    tileMovedtoBoard(id,value,letter,bonus);
-     $( this )
-     .addClass( "ui-state-highlight" )
-     .find( "p" )
-     .html( "Dropped!" );
-  }
-});
-
-function tileMovedtoBoard(id,value,letter,bonus){
-  currentScore+=value;
-  currentScore*=bonus;
-  console.log("Current Score"+currentScore);
-  
-
-}
-  function initializeGame(){
-    prepareBoard();
-    fillTilePool();
-    loadRack()
-  }
-
-  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
-  function prepareBoard(){
-    return;
-  //   $( "#droxppable-2" ).droppable({
-  //     drop: function( event, ui ) {
-  //        $( this )
-  //        .addClass( "ui-state-highlight" )
-  //        .find( "p" )
-  //        .html( "Dropped!" );
-  //     }
-  //  }); 
-  }
-  
-function handleDropEvent(event, ui) {
-    return;
-  }
-  
+  //Functions to get ready for game play
+ 
   //Ajax to get json containing info about tiles and their distribution
   $.get("https://ykanane.github.io/Scrabble/pieces.json")
   .done(function(response) {
     tileJSON = response.pieces;
     initializeGame();
   });
+
+  function initializeGame(){
+    prepareBoard();
+    fillTilePool();
+    loadRack()
+  }
+
+
+  // Sources:
+// https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
+// https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
+
+
+
+//function called when tile is set into place
+function tileMovedtoBoard(id,value,letter,bonus){
+  currentScore+=value;
+  // currentScore*=bonus;
+  
+  
+}
+  
+/*
+Making board 
+Sources:
+ https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
+ https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
+ https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
+ */
+  function prepareBoard(){
+    for(let i=0;i<15; i++){
+      var id="droppable-"+counter;
+      var bonus="1";
+      var boardText=""
+      if ((counter%5)==0 && counter!=0){
+        bonus="2";
+        boardText="Double Word Score"
+      }
+      counter++;
+      var boardClass="board"
+      
+
+      $("#board").append("<div id=\""+id+ "\""+
+      "class=\""+boardClass+ "\""+
+      "bonus=\""+bonus+ "\""+
+      "\">"+
+      boardText+
+      "</div>")
+
+      $( "#"+id ).droppable({
+        // tolerance: 'fit',
+        drop: function( event, ui ) {
+          var bonus = $("#"+id ).attr("bonus")
+          var id=ui.draggable.attr("id");
+          var value=ui.draggable.attr("value")
+          var letter=ui.draggable.attr("letter")
+          console.log("Value "+value+ " Letter "+letter +" Bonus" +bonus )
+          tileMovedtoBoard(id,value,letter,bonus);
+           $( this )
+           .addClass( "ui-state-highlight" );
+        }
+      });
+      
+}
+  }
+
+
+
+
+  
 
   //initialize the pool of tile with all duplicates included
   function fillTilePool(){
@@ -103,9 +123,7 @@ function handleDropEvent(event, ui) {
       tileRack.push(tilePool[randTile]);
       delete tilePool[randTile];
     }
-    // console.log($("#tilerack").attr("value"))
     for (let i = 0; i < tileRack.length; i++) {
-      // console.log(tileImg(tileRack[i].letter));
       loadTileGUI(tileRack[i],i)
     }
    
@@ -140,11 +158,7 @@ function handleDropEvent(event, ui) {
 
   }
 
-  function tileDropped(letter,value){
-    return;
-    // console.log("Tile Droppped "+letter + "value "+value)
-}
-
+ 
 
  
 
@@ -154,6 +168,17 @@ function handleDropEvent(event, ui) {
     else {return ""+ baseURL+tile+".jpg"}
   }
  
+
+  //game play
+
+
+  function tileMovedtoBoard(id,value,letter,bonus){
+    currentScore+=value;
+    currentScore*=bonus;
+    console.log("Current Score"+currentScore);
+    
+  
+  }
 
 
   

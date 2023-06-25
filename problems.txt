@@ -9,4 +9,7 @@ Some tiles don't load
     at l (jquery.min.js:2:80176)
     at XMLHttpRequest.<anonymous> (jquery.min.js:2:82630)"
 
-Score not calculating properly
+Score not calculating properly&
+bonus broken (bonus temp removed)
+
+Tiles can be placed in spots other than board
