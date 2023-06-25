@@ -9,6 +9,7 @@ Copyright (c) 2023 by VMunroe. All rights reserved. May be freely copied or exce
 created by VM 6/23/23
 
 Sources:
+https://sentry.io/answers/remove-specific-item-from-array/
 load tile bag & loading JSON:
 https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
 */
@@ -16,9 +17,12 @@ $(function() {
 
   var tilePool = [];
   var tileRack =[];
+  var currentTilesPlayed=[]
   var score=0;
   var currentScore=0;
   var counter=0;
+  var word="";
+  var boardSize=15;
 
   //Functions to get ready for game play
  
@@ -29,27 +33,22 @@ $(function() {
     initializeGame();
   });
 
+  $( "#submit" ).on( "click", function() {
+      playRound();
+  } );
+
+  $( "#reset" ).on( "click", function() {
+    reset();
+  } );
+
+
+
   function initializeGame(){
     prepareBoard();
     fillTilePool();
     loadRack()
   }
 
-
-  // Sources:
-// https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
-// https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
-
-
-
-//function called when tile is set into place
-function tileMovedtoBoard(id,value,letter,bonus){
-  currentScore+=value;
-  // currentScore*=bonus;
-  
-  
-}
-  
 /*
 Making board 
 Sources:
@@ -58,7 +57,7 @@ Sources:
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
  */
   function prepareBoard(){
-    for(let i=0;i<15; i++){
+    for(let i=0;i<boardSize; i++){
       var id="droppable-"+counter;
       var bonus="1";
       var boardText=""
@@ -79,19 +78,20 @@ Sources:
 
       $( "#"+id ).droppable({
         // tolerance: 'fit',
+        disabled: false,
         drop: function( event, ui ) {
           var bonus = $("#"+id ).attr("bonus")
           var id=ui.draggable.attr("id");
           var value=ui.draggable.attr("value")
           var letter=ui.draggable.attr("letter")
-          console.log("Value "+value+ " Letter "+letter +" Bonus" +bonus )
+          disableTile(id,letter)
           tileMovedtoBoard(id,value,letter,bonus);
            $( this )
            .addClass( "ui-state-highlight" );
         }
       });
       
-}
+  }
   }
 
 
@@ -102,7 +102,6 @@ Sources:
   //initialize the pool of tile with all duplicates included
   function fillTilePool(){
     counter=0;
-    console.log("intialize")
     for(i = 0; i < 27; i++){
       var currentTile = tileJSON[i];
       for(k = 0; k < currentTile.amount; k++){
@@ -114,11 +113,11 @@ Sources:
   function loadRack(){
     var randTile;
     if(tilePool.length<=0){
-      console.log("Empty")
       $(msg).text("Bag is empty");
       return;
     }
     while(tileRack.length<7 && tilePool.length>0){
+      // console.log("Tile rack has "+ tileRack.length)
       randTile=Math.floor(Math.random() * tilePool.length);
       tileRack.push(tilePool[randTile]);
       delete tilePool[randTile];
@@ -145,7 +144,7 @@ Sources:
     "value=\""+value+ "\""+
     "letter=\""+letter+ "\""+
     "\">")
-    console.log("Created tile "+letter)
+    // console.log("Created tile "+letter)
     //https://www.tutorialspoint.com/jqueryui/jqueryui_draggable.htm
     $("#"+id).draggable({
       cursor: "move",
@@ -171,15 +170,88 @@ Sources:
 
   //game play
 
+  //function called when tile is set into place
+// function tileMovedtoBoard(id,value,letter,bonus){
+//   currentScore+=value;
+//   // currentScore*=bonus;
+  
+  
+// }
 
   function tileMovedtoBoard(id,value,letter,bonus){
     currentScore+=value;
     currentScore*=bonus;
     console.log("Current Score"+currentScore);
-    
-  
+
+    word+=letter;
+
+    updateBoard(word.length-1, true);//disable current tile location
+   
   }
 
+  function playRound(){
+    console.log("Playing new round")
+    score+=currentScore;
+    $("#score").text("Current Score:" +score+"<br>Last Round won "+currentScore+" points!");
+    loadRack();
+
+  }
+
+
+
+
+//misc functions
+function updateBoard(location, disable){
+  $( "#droppable-"+location ).droppable({
+    // tolerance: 'fit',
+    disabled: disable,
+  });
+}
+
+
+function disableTile(id,letter){
+  console.log("Disabling tile")
+  $(id).draggable({
+    disabled: true,
+  });
+
+  currentTilesPlayed.push($(id))
+  console.log("size "+tileRack.length)
+  for(let i=0;i<tileRack.length;i++){
+    console.log(tileRack[i].letter)
+    console.log(letter)
+    if (tileRack[i].letter == letter){delete tileRack[i]}
+  }
+  console.log("size "+tileRack.length)
+  console.log("deleted")
+  for(let i=0;i<tileRack.length;i++){
+    console.log(tileRack[i].letter)
+  }
+ 
+  // console.log("Deleted "+value+"At "+index)
+  // for(let i=0;i<tileRack.length;i++){
+  //   if (tileRack[i].letter==value)
+  //     delete tileRack[index];
+  //   break;
+  // }
+  // for(let i=0;i<tileRack.length;i++){
+  //   console.log(tileRack[i])
+  // }
+
+
+}
+
+function reset(){
+  for(let i=0;i<boardSize;i++){
+    updateBoard(i,false)//enable all board locations
+  }
+  $("#rack").empty();
+  word="";
+  currentScore=0;
+  score=0;
+  fillTilePool();
+  loadRack()
+}
 
   
 });
