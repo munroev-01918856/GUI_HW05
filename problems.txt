@@ -10,6 +10,6 @@ Some tiles don't load
     at XMLHttpRequest.<anonymous> (jquery.min.js:2:82630)"
 
 Score not calculating properly&
-bonus broken (bonus temp removed)
+bonus broken (bonus temp removed)& add double letter bonus
 
 Tiles can be placed in spots other than board
