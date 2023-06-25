@@ -31,5 +31,21 @@ body{
 .tile{
     /* width:5%; */
     max-width:50px;
+    cursor: pointer;
+    /* z-index: 1; */
 
+}
+
+#tileRack{
+    width:400px;
+    /* z-index: 2; */
+}
+
+.board{
+    display: inline-block;
+  height: 160px;
+  width: 160px;
+  margin: 10px;
+  border: solid 3px salmon;
+  background: white;
 }
