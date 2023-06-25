@@ -43,9 +43,20 @@ body{
 
 .board{
     display: inline-block;
-  height: 160px;
-  width: 160px;
-  margin: 10px;
+  height: 60px;
+  width: 60px;
+  margin: 5px;
   border: solid 3px salmon;
   background: white;
 }
+
+/* Remove*/
+
+#draggable-2 { 
+    width: 100px; height: 50px; padding: 0.5em; 
+    margin: 0px 5px 10px 0; 	    
+ }
+ #droppable-2,#droppable-3, #droppable-4,#droppable-5 { 
+    width: 120px; height: 90px;padding: 0.5em; float: left; 
+    margin: 10px; 
+ }

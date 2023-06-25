@@ -19,13 +19,40 @@ $(function() {
   var score=0;
   var counter=0;
 
+//REMOVE
+// $( "#draggable-2" ).draggable();
+$( "#droppable-2" ).droppable({
+  drop: function( event, ui ) {
+     $( this )
+     .addClass( "ui-state-highlight" );
+    //  .find( "p" )
+    //  .html( "Dropped!" );
+     console.log("Hi")
+  }
+});
+
   function initializeGame(){
+    prepareBoard();
     fillTilePool();
     loadRack()
   }
 
-  $(".board").droppable();
+  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
+  function prepareBoard(){
+    return;
+  //   $( "#droxppable-2" ).droppable({
+  //     drop: function( event, ui ) {
+  //        $( this )
+  //        .addClass( "ui-state-highlight" )
+  //        .find( "p" )
+  //        .html( "Dropped!" );
+  //     }
+  //  }); 
+  }
   
+function handleDropEvent(event, ui) {
+    return;
+  }
   
   //Ajax to get json containing info about tiles and their distribution
   $.get("https://ykanane.github.io/Scrabble/pieces.json")
@@ -96,7 +123,8 @@ $(function() {
   }
 
   function tileDropped(letter,value){
-    console.log("Tile Droppped "+letter + "value "+value)
+    return;
+    // console.log("Tile Droppped "+letter + "value "+value)
 }
 
 
