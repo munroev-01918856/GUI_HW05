@@ -63,10 +63,15 @@ Sources:
     for(let i=0;i<boardSize; i++){
       var id="droppable-"+counter;
       var bonus="1";
+      var bonusLetter="1";
       var boardText=""
       if ((counter%5)==0 && counter!=0){
         bonus="2";
         boardText="Double Word Score"
+      }
+      if ((counter==2 )|| (counter ==13)){
+        bonusLetter="2";
+        boardText="Double Letter Score"
       }
       counter++;
       var boardClass="board"
@@ -75,23 +80,25 @@ Sources:
       $("#board").append("<div id=\""+id+ "\""+
       "class=\""+boardClass+ "\""+
       "bonus=\""+bonus+ "\""+
+      "bonusLetter=\""+bonusLetter+ "\""+
       "\">"+
       boardText+
       "</div>")
 
       $( "#"+id ).droppable({
-        // tolerance: 'fit',
+        tolerance: 'fit',
         disabled: false,
         drop: function( event, ui ) {
           rightPlace=true;
           //var bonus = $("#"+id ).attr("bonus")
 		      var bonus = $(this).attr("bonus")
+          var bonusLetter=$(this).attr("bonusLetter")
           var id=ui.draggable.attr("id");
           var value=ui.draggable.attr("value")
           var letter=ui.draggable.attr("letter")
           disableTile(id,letter)
           $(this).next().attr("id");
-          tileMovedtoBoard(id,value,letter,bonus,$(this).attr("id"),$(this).next().attr("id"));
+          tileMovedtoBoard(id,value,letter,bonus,bonusLetter,$(this).attr("id"),$(this).next().attr("id"));
            $( this )
            .addClass( "ui-state-highlight" );
         }
@@ -187,8 +194,8 @@ Sources:
   
 // }
 
-  function tileMovedtoBoard(id,value,letter,bonus,boardId,nextBoardID){
-    currentScore+=parseInt(value);
+  function tileMovedtoBoard(id,value,letter,bonus,bonusLetter,boardId,nextBoardID){
+    currentScore+=(parseInt(value)*parseInt(bonusLetter));
     currentScore*=parseInt(bonus);
     console.log("Current Score: "+currentScore);
     word+=letter;
