@@ -201,18 +201,15 @@ Sources:
    
   }
 
+  //function to clear board & load tiles for new round
   function playRound(){
     console.log("Playing new round")
     score+=currentScore;
-	currentScore=0;
     $("#score").text("Current Score:" +score);
     $("#word").text("Last round played "+word + "For " +currentScore+" points!")
-    //clear board
-    // for (let i=0;i<currentTilesPlayed.length;i++){
-    //   console.log("Test "+currentTilesPlayed[i])
-    //   $(currentTilesPlayed[i]).remove();
-    // }
-    //add new tiles
+    word="";
+    currentScore=0;
+    resetBoard();
     loadRack();
 
   }
@@ -253,10 +250,14 @@ function disableTile(id,letter){
  
 }
 
-function reset(){
+function resetBoard(){
   for(let i=0;i<boardSize;i++){
     updateBoard(i,false)//enable all board locations
   }
+}
+
+function reset(){
+  resetBoard();
   $("#rack").empty();
   word="";
   currentScore=0;
