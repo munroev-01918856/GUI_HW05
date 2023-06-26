@@ -81,12 +81,13 @@ Sources:
         disabled: false,
         drop: function( event, ui ) {
           //var bonus = $("#"+id ).attr("bonus")
-		var bonus = $(this).attr("bonus")
+		      var bonus = $(this).attr("bonus")
           var id=ui.draggable.attr("id");
           var value=ui.draggable.attr("value")
           var letter=ui.draggable.attr("letter")
           disableTile(id,letter)
-          tileMovedtoBoard(id,value,letter,bonus);
+          $(this).next().attr("id");
+          tileMovedtoBoard(id,value,letter,bonus,$(this).attr("id"),$(this).next().attr("id"));
            $( this )
            .addClass( "ui-state-highlight" );
         }
@@ -186,19 +187,23 @@ Sources:
   
 // }
 
-  function tileMovedtoBoard(id,value,letter,bonus){
-	//console.log("value: " +value);
-	//console.log(typeof value);
-	//console.log("bonus: " +bonus);
-	//console.log(typeof bonus);
+  function tileMovedtoBoard(id,value,letter,bonus,boardId,nextBoardID){
     currentScore+=parseInt(value);
     currentScore*=parseInt(bonus);
     console.log("Current Score: "+currentScore);
-
     word+=letter;
+    if (word.length==1){//disable all locations to prevent improper implacement
+      for(let i=0;i<boardSize;i++){
+        updateBoard(i,true)//disable all board locations
+      }
+    }
+    $("#"+boardId).droppable({
+      disabled: true,
+    });
+    $("#"+nextBoardID).droppable({
+      disabled: false,
+    });
 
-    updateBoard(word.length-1, true);//disable current tile location
-   
   }
 
   //function to clear board & load tiles for new round
@@ -220,15 +225,14 @@ Sources:
 //misc functions
 function updateBoard(location, disable){
   $( "#droppable-"+location ).droppable({
-    // tolerance: 'fit',
     disabled: disable,
   });
 }
 
 
 function disableTile(id,letter){
-  console.log("Disabling tile")
-  $(id).draggable({
+
+  $(id).draggable({ //prevent tile from being moved
     disabled: true,
   });
 
@@ -238,7 +242,7 @@ function disableTile(id,letter){
     console.log(tileRack[i].letter)
     console.log(letter)
     if (tileRack[i].letter == letter){
-	tileRack.splice(i,1);
+	tileRack.splice(i,1);//avoids error from using delete array[] function
 	break; //prevent removal of more than one instance (if any) of the letter from rack
     }
   }
