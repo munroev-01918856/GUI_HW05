@@ -9,6 +9,8 @@ Copyright (c) 2023 by VMunroe. All rights reserved. May be freely copied or exce
 created by VM 6/23/23
 
 Sources:
+https://api.jqueryui.com/
+https://stackoverflow.com/questions/35367055/get-id-of-next-dom-element
 https://sentry.io/answers/remove-specific-item-from-array/
 load tile bag & loading JSON:
 https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
@@ -23,6 +25,7 @@ $(function() {
   var counter=0;
   var word="";
   var boardSize=15;
+  var rightPlace=false;
 
   //Functions to get ready for game play
  
@@ -80,6 +83,7 @@ Sources:
         // tolerance: 'fit',
         disabled: false,
         drop: function( event, ui ) {
+          rightPlace=true;
           //var bonus = $("#"+id ).attr("bonus")
 		      var bonus = $(this).attr("bonus")
           var id=ui.draggable.attr("id");
@@ -119,18 +123,12 @@ Sources:
       $(msg).text("Bag is empty");
       return;
     }
-	//console.log("89th tilePoolTile: "+ tilePool[89].letter);
-	//console.log("90th tilePoolTile: "+ tilePool[90].letter);
-	//console.log("16th tilePoolTile: "+ tilePool[91].letter);
     while(tileRack.length<7 && tilePool.length>0){
-      // console.log("Tile rack has "+ tileRack.length)
       randTile=Math.floor(Math.random() * tilePool.length);
-	//console.log(tileRack.length+"th randTile: "+ randTile);
       tileRack.push(tilePool[randTile]);
       tilePool.splice(randTile,1);
 	
     }
-	//console.log("tileRack: "+ tileRack);
     for (let i = 0; i < tileRack.length; i++) {
       loadTileGUI(tileRack[i],i)
     }
@@ -157,14 +155,16 @@ Sources:
     //https://www.tutorialspoint.com/jqueryui/jqueryui_draggable.htm
     $("#"+id).draggable({
       cursor: "move",
+      revert:"invalid", //prevent moving tile to incorrect place
       stop: function(event, ui) {
-        // Write the Code 
+        // if(rightPlace){console.log("Right")}
         return;
       }
 
   });
 
   }
+
 
  
 
@@ -223,6 +223,7 @@ Sources:
 
 
 //misc functions
+
 function updateBoard(location, disable){
   $( "#droppable-"+location ).droppable({
     disabled: disable,
@@ -269,6 +270,7 @@ function reset(){
   fillTilePool();
   loadRack()
 }
+
 
   
 });
