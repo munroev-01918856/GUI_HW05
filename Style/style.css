@@ -39,6 +39,7 @@ body{
 
 #rack{
     clear:both
+    
 }
 
 #tileRack{
@@ -48,6 +49,7 @@ body{
 
 
 .board{
+    margin:auto;
   height: 60px;
   width: 60px;
   margin: 5px;

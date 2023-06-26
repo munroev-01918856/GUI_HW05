@@ -226,6 +226,18 @@ Sources:
 
   }
 
+  function reset(){
+    resetBoard();
+    $("#rack").empty();
+    word="";
+    currentScore=0;
+    score=0;
+    $("#score").text("Current Score:" +score);
+    fillTilePool();
+    loadRack()
+  }
+  
+
 
 
 
@@ -268,15 +280,6 @@ function resetBoard(){
   }
 }
 
-function reset(){
-  resetBoard();
-  $("#rack").empty();
-  word="";
-  currentScore=0;
-  score=0;
-  fillTilePool();
-  loadRack()
-}
 
 
   
