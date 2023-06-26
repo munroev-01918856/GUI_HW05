@@ -17,23 +17,25 @@ https://softauthor.com/javascript-working-with-images/#:~:text=Create%20Image%20
 body{
     font-family: Arial, Helvetica, sans-serif;
     background-image: url("../graphics_data/background.png");
-
-    /* Center and scale the image nicely */
+    padding:2%;
     background-position: center;
-    background-repeat: repeat;
     background-size: cover;
-
     color:rgb(7, 116, 116);
     font-style: bold;
 
 }
+h1{
+    text-align: center;
+}
 
+p button{
+    margin:auto;
+    display: inline-block;
+}
 .tile{
     clear:both;
-    /* width:5%; */
     max-width:50px;
     cursor: pointer;
-    /* z-index: 1; */
 
 }
 
@@ -50,12 +52,16 @@ body{
 
 .board{
     margin:auto;
-  height: 60px;
-  width: 60px;
-  margin: 5px;
-  border: solid 3px salmon;
-  background: white;
-  float: left; 
+    height: 60px;
+    width: 60px;
+    text-align: center;
+    font-size: .8em;
+    font-weight: bold;
+    margin: 10px 0;
+    border: solid  3px rgb(7, 116, 116);
+    border-style:bold;
+    background: lightgray;
+    float: left; 
 }
 
 /* Remove*/
