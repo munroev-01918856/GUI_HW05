@@ -9,17 +9,16 @@ Some tiles don't load:
         at l (jquery.min.js:2:80176)
         at XMLHttpRequest.<anonymous> (jquery.min.js:2:82630)"
 
+fix delete tiles from previous round from rack(disableTile)
+
+fix number of letters added in new round (releated to delete from rack)
+
 Score not calculating properly&
 bonus broken (bonus temp removed)
 
-Tiles can be placed in spots other than board
-
-fix delete tiles from previous round from rack(disableTile)
-
-fix number of letters added in new round
-
 fix clear board in playRound()
-To-do:
-1. enable proper tile rack
 
+To-do:
+1. tile bounce back if not placed in right spots
+2. tile rack placement
 3. add double letter bonus

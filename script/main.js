@@ -80,7 +80,8 @@ Sources:
         // tolerance: 'fit',
         disabled: false,
         drop: function( event, ui ) {
-          var bonus = $("#"+id ).attr("bonus")
+          //var bonus = $("#"+id ).attr("bonus")
+		var bonus = $(this).attr("bonus")
           var id=ui.draggable.attr("id");
           var value=ui.draggable.attr("value")
           var letter=ui.draggable.attr("letter")
@@ -111,17 +112,24 @@ Sources:
   }
 
   function loadRack(){
+	$("#rack").empty();
     var randTile;
     if(tilePool.length<=0){
       $(msg).text("Bag is empty");
       return;
     }
+	//console.log("89th tilePoolTile: "+ tilePool[89].letter);
+	//console.log("90th tilePoolTile: "+ tilePool[90].letter);
+	//console.log("16th tilePoolTile: "+ tilePool[91].letter);
     while(tileRack.length<7 && tilePool.length>0){
       // console.log("Tile rack has "+ tileRack.length)
       randTile=Math.floor(Math.random() * tilePool.length);
+	//console.log(tileRack.length+"th randTile: "+ randTile);
       tileRack.push(tilePool[randTile]);
-      delete tilePool[randTile];
+      tilePool.splice(randTile,1);
+	
     }
+	//console.log("tileRack: "+ tileRack);
     for (let i = 0; i < tileRack.length; i++) {
       loadTileGUI(tileRack[i],i)
     }
@@ -179,9 +187,13 @@ Sources:
 // }
 
   function tileMovedtoBoard(id,value,letter,bonus){
-    currentScore+=value;
-    currentScore*=bonus;
-    console.log("Current Score"+currentScore);
+	//console.log("value: " +value);
+	//console.log(typeof value);
+	//console.log("bonus: " +bonus);
+	//console.log(typeof bonus);
+    currentScore+=parseInt(value);
+    currentScore*=parseInt(bonus);
+    console.log("Current Score: "+currentScore);
 
     word+=letter;
 
@@ -192,13 +204,14 @@ Sources:
   function playRound(){
     console.log("Playing new round")
     score+=currentScore;
+	currentScore=0;
     $("#score").text("Current Score:" +score);
     $("#word").text("Last round played "+word + "For " +currentScore+" points!")
     //clear board
-    for (let i=0;i<currentTilesPlayed.length;i++){
-      console.log("Test "+currentTilesPlayed[i])
-      $(currentTilesPlayed[i]).remove();
-    }
+    // for (let i=0;i<currentTilesPlayed.length;i++){
+    //   console.log("Test "+currentTilesPlayed[i])
+    //   $(currentTilesPlayed[i]).remove();
+    // }
     //add new tiles
     loadRack();
 
@@ -227,7 +240,10 @@ function disableTile(id,letter){
   for(let i=0;i<tileRack.length;i++){
     console.log(tileRack[i].letter)
     console.log(letter)
-    if (tileRack[i].letter == letter){delete tileRack[i]}
+    if (tileRack[i].letter == letter){
+	tileRack.splice(i,1);
+	break; //prevent removal of more than one instance (if any) of the letter from rack
+    }
   }
   console.log("size "+tileRack.length)
   console.log("deleted")
