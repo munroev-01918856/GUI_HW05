@@ -40,8 +40,10 @@ p button{
 }
 
 #rack{
-    clear:both
-    
+    clear:both;
+    padding-left: auto;
+    padding-right: auto;
+    margin-top: 20%;
 }
 
 #tileRack{
@@ -63,6 +65,8 @@ p button{
     background: lightgray;
     float: left; 
 }
+
+
 
 /* Remove*/
 

@@ -199,6 +199,8 @@ Sources:
     currentScore*=parseInt(bonus);
     console.log("Current Score: "+currentScore);
     word+=letter;
+    $("#currWordString").text("Current Word played: "+word)
+    $("#lastPlayedTile").text("The last played tile was #"+nextBoardID.substring(10))
     if (word.length==1){//disable all locations to prevent improper implacement
       for(let i=0;i<boardSize;i++){
         updateBoard(i,true)//disable all board locations
@@ -237,9 +239,6 @@ Sources:
     loadRack()
   }
   
-
-
-
 
 //misc functions
 
