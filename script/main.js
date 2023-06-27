@@ -18,7 +18,7 @@ https://sentry.io/answers/remove-specific-item-from-array/
 load tile bag & loading JSON:
 https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
 */
-$(function() {
+$( document ).ready(function() {
 
   var tilePool = [];
   var tileRack =[];
@@ -39,14 +39,15 @@ $(function() {
     initializeGame();
   });
 
-  $( "#submit" ).on( "click", function() {
-      playRound();
-  } );
+  function loadButtons(){
+    $( "#submit" ).on( "click", function() {
+        playRound();
+    } );
 
-  $( "#reset" ).on( "click", function() {
-    reset();
-  } );
-
+    $( "#reset" ).on( "click", function() {
+      reset();
+    } );
+  }
 
 
   function initializeGame(){
@@ -63,6 +64,7 @@ Sources:
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
  */
   function prepareBoard(){
+    loadButtons();
     for(let i=0;i<boardSize; i++){
       var id="droppable-"+counter;
       var bonus="1";

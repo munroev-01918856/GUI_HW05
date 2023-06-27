@@ -2,5 +2,8 @@
 
 To-do:
 1. Check bag size after each play & a reset
+2.add replace tiles
 
 2. tile rack placement
+
+
