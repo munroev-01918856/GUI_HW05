@@ -11,11 +11,12 @@ created by VM 6/23/23
 Sources:
 https://api.jqueryui.com/
 https://stackoverflow.com/questions/35367055/get-id-of-next-dom-element
+https://stackoverflow.com/questions/3943868/jquery-drag-and-drop-find-the-id-of-the-target
 https://sentry.io/answers/remove-specific-item-from-array/
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
  https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
-load tile bag & loading JSON:
+load tile bag & loading JSON (also used one of their stackoverflow sources (-drop-find-the-id) for assistance see above for source)
 https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
 */
 $( document ).ready(function() {
@@ -62,6 +63,10 @@ Sources:
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
  https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
+ https://stackoverflow.com/questions/3943868/jquery-drag-and-drop-find-the-id-of-the-target
+ */
+
+ /*Sets up the board html & creates a droppable event which calls other classes to handle a dropped tile
  */
   function prepareBoard(){
     loadButtons();
@@ -82,8 +87,6 @@ Sources:
         boardText="Double Letter Score"
       }
       counter++;
-      
-      
 
       $("#board").append("<div id=\""+id+ "\""+
       "class=\""+boardClass+ "\""+
@@ -98,7 +101,6 @@ Sources:
         disabled: false,
         drop: function( event, ui ) {
           rightPlace=true;
-          //var bonus = $("#"+id ).attr("bonus")
 		      var bonus = $(this).attr("bonus")
           var bonusLetter=$(this).attr("bonusLetter")
           var id=ui.draggable.attr("id");
@@ -131,17 +133,20 @@ Sources:
     }
   }
 
+  //loads the rack with the necessary number of tiles
   function loadRack(){
-	$("#rack").empty();
+	  $("#rack").empty(); //clears gui elements to make room for updated rack
     var randTile;
     if(tilePool.length<=0){
-      $(msg).text("Bag is empty");
-      return;
+      $("#msg").text("Bag is empty");
     }
     while(tileRack.length<7 && tilePool.length>0){
       randTile=Math.floor(Math.random() * tilePool.length);
       tileRack.push(tilePool[randTile]);
       tilePool.splice(randTile,1);
+      if(tilePool.length<=0){
+        $("#msg").text("Bag is empty");
+      }
 	
     }
     for (let i = 0; i < tileRack.length; i++) {
@@ -151,7 +156,8 @@ Sources:
 }
   
  
-  
+ /* Creates GUI tile elements & makes them draggable 
+ */ 
   function loadTileGUI(tile, pos){
     var letter=tile.letter
     var value=tile.value
@@ -166,15 +172,10 @@ Sources:
     "value=\""+value+ "\""+
     "letter=\""+letter+ "\""+
     "\">")
-    // console.log("Created tile "+letter)
     //https://www.tutorialspoint.com/jqueryui/jqueryui_draggable.htm
     $("#"+id).draggable({
       cursor: "move",
       revert:"invalid", //prevent moving tile to incorrect place
-      stop: function(event, ui) {
-        // if(rightPlace){console.log("Right")}
-        return;
-      }
 
   });
 
@@ -185,22 +186,12 @@ Sources:
 
  
 
-  function tileImg(tile){
-    var baseURL="images/Scrabble_Tiles/Scrabble_Tile_"
-    if (tile=="_"){return ""+ baseURL+ "Blank.jpg"}
-    else {return ""+ baseURL+tile+".jpg"}
-  }
+  
  
 
   //game play
 
-  //function called when tile is set into place
-// function tileMovedtoBoard(id,value,letter,bonus){
-//   currentScore+=value;
-//   // currentScore*=bonus;
   
-  
-// }
 
   function tileMovedtoBoard(id,value,letter,bonus,bonusLetter,boardId,nextBoardID){
     currentScore+=(parseInt(value)*parseInt(bonusLetter));
@@ -253,6 +244,13 @@ Sources:
   
 
 //misc functions
+
+//Returns specific URL for each tile 
+function tileImg(tile){
+  var baseURL="images/Scrabble_Tiles/Scrabble_Tile_"
+  if (tile=="_"){return ""+ baseURL+ "Blank.jpg"}
+  else {return ""+ baseURL+tile+".jpg"}
+}
 
 function updateBoard(location, disable){
   $( "#droppable-"+location ).droppable({
