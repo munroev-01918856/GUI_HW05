@@ -60,13 +60,20 @@ p button{
     font-size: .8em;
     font-weight: bold;
     margin: 10px 0;
-    border: solid  3px rgb(7, 116, 116);
+    border: solid  3px white;
     border-style:bold;
     background: lightgray;
     float: left; 
+    color: black
 }
 
+.doubleLetter{
+   background-color: rgb(218, 150, 218);
+}
 
+.doubleWord{
+    background-color: rgb(162, 45, 162);
+}
 
 /* Remove*/
 

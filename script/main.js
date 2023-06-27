@@ -65,16 +65,19 @@ Sources:
       var bonus="1";
       var bonusLetter="1";
       var boardText=""
+      var boardClass="board"
       if ((counter%5)==0 && counter!=0){
+        boardClass=boardClass+ " doubleWord"
         bonus="2";
         boardText="Double Word Score"
       }
       if ((counter==2 )|| (counter ==13)){
+        boardClass=boardClass+ " doubleLetter"
         bonusLetter="2";
         boardText="Double Letter Score"
       }
       counter++;
-      var boardClass="board"
+      
       
 
       $("#board").append("<div id=\""+id+ "\""+
