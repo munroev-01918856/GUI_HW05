@@ -29,11 +29,11 @@ $( document ).ready(function() {
   var counter=0;
   var word="";
   var boardSize=15;
-  var rightPlace=false;
 
   //Functions to get ready for game play
  
   //Ajax to get json containing info about tiles and their distribution
+  //Source:https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
   $.get("https://ykanane.github.io/Scrabble/pieces.json")
   .done(function(response) {
     tileJSON = response.pieces;
@@ -97,10 +97,9 @@ Sources:
       "</div>")
 
       $( "#"+id ).droppable({
-        tolerance: 'fit',
+        // tolerance: 'fit',
         disabled: false,
         drop: function( event, ui ) {
-          rightPlace=true;
 		      var bonus = $(this).attr("bonus")
           var bonusLetter=$(this).attr("bonusLetter")
           var id=ui.draggable.attr("id");
