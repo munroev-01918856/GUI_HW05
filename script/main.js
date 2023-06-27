@@ -238,6 +238,9 @@ Sources:
     currentScore=0;
     score=0;
     $("#score").text("Current Score:" +score);
+  
+    $("#currWordString").text("");
+    $("#lastPlayedTile").text("");
     fillTilePool();
     loadRack()
   }
