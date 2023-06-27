@@ -2,7 +2,7 @@
  File: main.js
 GUI Assignment: HW 5-Scrabble
 Victoria Munroe victoria_munroe@student.uml.edu
-Description: 1 row legnth scrabble
+Description: 1 row length scrabble
 This page holds programming
 
 Copyright (c) 2023 by VMunroe. All rights reserved. May be freely copied or excerpted for educational purposes with credit to the author.
@@ -12,6 +12,9 @@ Sources:
 https://api.jqueryui.com/
 https://stackoverflow.com/questions/35367055/get-id-of-next-dom-element
 https://sentry.io/answers/remove-specific-item-from-array/
+ https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
+ https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
+ https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
 load tile bag & loading JSON:
 https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
 */

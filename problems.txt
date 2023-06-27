@@ -1,24 +1,6 @@
-Some tiles don't load:
-    "Uncaught TypeError: Cannot read properties of undefined (reading 'letter')
-        at loadTileGUI (main.js:72:21)
-        at loadRack (main.js:64:7)
-        at initializeGame (main.js:24:5)
-        at Object.<anonymous> (main.js:34:5)
-        at c (jquery.min.js:2:28447)
-        at Object.fireWith [as resolveWith] (jquery.min.js:2:29192)
-        at l (jquery.min.js:2:80176)
-        at XMLHttpRequest.<anonymous> (jquery.min.js:2:82630)"
 
-fix delete tiles from previous round from rack(disableTile)
-
-fix number of letters added in new round (releated to delete from rack)
-
-Score not calculating properly&
-bonus broken (bonus temp removed)
-
-fix clear board in playRound()
 
 To-do:
-1. tile bounce back if not placed in right spots
+1. Check bag size after each play & a reset
+
 2. tile rack placement
-3. add double letter bonus
