@@ -23,14 +23,13 @@ $( document ).ready(function() {
 
   var tilePool = [];
   var tileRack =[];
-  var currentTilesPlayed=[]
   var score=0;
   var currentScore=0;
   var counter=0;
   var word="";
   var boardSize=15;
 
-  //Functions to get ready for game play
+  /*********************Functions to get ready for game play*************************/
  
   //Ajax to get json containing info about tiles and their distribution
   //Source:https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
@@ -57,17 +56,21 @@ $( document ).ready(function() {
     loadRack()
   }
 
+
+
+
+/*********************Functions to set up  game board & pieces *************************/
+ 
 /*
 Making board 
+Sets up the board html & creates a droppable event which calls other classes to handle a dropped tile
+
 Sources:
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
  https://stackoverflow.com/questions/42436857/how-to-get-id-of-a-dropped-element-jquery-ui
  https://www.tutorialspoint.com/jqueryui/jqueryui_droppable.htm#
  https://stackoverflow.com/questions/3943868/jquery-drag-and-drop-find-the-id-of-the-target
- */
-
- /*Sets up the board html & creates a droppable event which calls other classes to handle a dropped tile
- */
+  */
   function prepareBoard(){
     loadButtons();
     for(let i=0;i<boardSize; i++){
@@ -117,11 +120,8 @@ Sources:
   }
 
 
-
-
-  
-
   //initialize the pool of tile with all duplicates included
+  //Source:https://github.com/ykanane/Scrabble/blob/master/js/add-content.js
   function fillTilePool(){
     counter=0;
     for(i = 0; i < 27; i++){
@@ -133,6 +133,7 @@ Sources:
   }
 
   //loads the rack with the necessary number of tiles
+  //source:https://sentry.io/answers/remove-specific-item-from-array/
   function loadRack(){
 	  $("#rack").empty(); //clears gui elements to make room for updated rack
     var randTile;
@@ -171,7 +172,7 @@ Sources:
     "value=\""+value+ "\""+
     "letter=\""+letter+ "\""+
     "\">")
-    //https://www.tutorialspoint.com/jqueryui/jqueryui_draggable.htm
+    //Souce"https://www.tutorialspoint.com/jqueryui/jqueryui_draggable.htm
     $("#"+id).draggable({
       cursor: "move",
       revert:"invalid", //prevent moving tile to incorrect place
@@ -188,7 +189,8 @@ Sources:
   
  
 
-  //game play
+  /*********************Functions for game play*************************/
+ 
 
   
 
@@ -242,7 +244,8 @@ Sources:
   }
   
 
-//misc functions
+/********************* misc functions *************************/
+ 
 
 //Returns specific URL for each tile 
 function tileImg(tile){
@@ -251,20 +254,21 @@ function tileImg(tile){
   else {return ""+ baseURL+tile+".jpg"}
 }
 
+//enables or disables specific board location
 function updateBoard(location, disable){
   $( "#droppable-"+location ).droppable({
     disabled: disable,
   });
 }
 
-
+//disables played tile & removes fromr rack
 function disableTile(id,letter){
 
   $(id).draggable({ //prevent tile from being moved
     disabled: true,
   });
 
-  currentTilesPlayed.push($(id))
+  // currentTilesPlayed.push($(id))
   console.log("size "+tileRack.length)
   for(let i=0;i<tileRack.length;i++){
     console.log(tileRack[i].letter)
