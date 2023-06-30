@@ -195,12 +195,13 @@ Sources:
   
 
   function tileMovedtoBoard(id,value,letter,bonus,bonusLetter,boardId,nextBoardID){
+    var lastPlayedTile=parseInt(boardId.substring(10));
     currentScore+=(parseInt(value)*parseInt(bonusLetter));
     currentScore*=parseInt(bonus);
     console.log("Current Score: "+currentScore);
     word+=letter;
     $("#currWordString").text("Current Word played: "+word)
-    $("#lastPlayedTile").text("The last played tile was #"+nextBoardID.substring(10))
+    $("#lastPlayedTile").text("The last played tile was #"+(lastPlayedTile+1))
     if (word.length==1){//disable all locations to prevent improper implacement
       for(let i=0;i<boardSize;i++){
         updateBoard(i,true)//disable all board locations
