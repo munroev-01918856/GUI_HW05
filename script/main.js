@@ -200,6 +200,7 @@ Sources:
     currentScore*=parseInt(bonus);
     console.log("Current Score: "+currentScore);
     word+=letter;
+    $("#score").text("Current Score:" +currentScore);
     $("#currWordString").text("Current Word played: "+word)
     $("#lastPlayedTile").text("The last played tile was #"+(lastPlayedTile+1))
     if (word.length==1){//disable all locations to prevent improper implacement
